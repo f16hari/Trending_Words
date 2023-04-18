@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.GenericApplicationContext;
 
 import com.hariharanj.server.ioc.ConsumerIoc;
+import com.hariharanj.server.ioc.DistFileSystemIoc;
 import com.hariharanj.server.ioc.ProducerIoc;
 
 public class ApplicationContext {
@@ -16,6 +17,7 @@ public class ApplicationContext {
 
             context.register(ConsumerIoc.class);
             context.register(ProducerIoc.class);
+            context.register(DistFileSystemIoc.class);
             context.refresh();
         }
 

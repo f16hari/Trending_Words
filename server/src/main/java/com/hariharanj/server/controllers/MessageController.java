@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hariharanj.server.ApplicationContext;
 import com.hariharanj.server.consumers.IConsumer;
+import com.hariharanj.server.dfs.IDistFileSystem;
 import com.hariharanj.server.models.Message;
 import com.hariharanj.server.producers.IProducer;
 
@@ -22,6 +23,16 @@ public class MessageController {
     @PostMapping("post")
     public String postMessage(@RequestBody Message message){
         IProducer producer = context.getBean("producer", IProducer.class);
+
+        IDistFileSystem dfs = context.getBean("distFileSystem", IDistFileSystem.class);
+
+        try{
+            dfs.AppendInFile(message.getTopic(), message.getData());
+        }
+        catch(Exception e){
+            System.out.println("Error Has Occurred!!!");
+        }
+
         if(producer.produce(message)) return "Successful";
 
         return "Error Has Occured!!";
