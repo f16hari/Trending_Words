@@ -7,4 +7,6 @@ public interface IDistFileSystem {
     void AppendInFile(String fileName, String data) throws Exception;
     void TruncateFile(String fileName) throws Exception;
     void DeleteFile(String fileName) throws Exception;
+    String getPath(String fileName) throws Exception;
+    void MergeFiles(String directory, String filter, String outputFile) throws Exception;
 }
