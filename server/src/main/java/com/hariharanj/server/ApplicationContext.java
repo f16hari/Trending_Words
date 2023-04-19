@@ -15,8 +15,8 @@ public class ApplicationContext {
         if(context == null){
             context = new AnnotationConfigApplicationContext();
 
-            context.register(ConsumerIoc.class);
             context.register(ProducerIoc.class);
+            context.register(ConsumerIoc.class);
             context.register(DistFileSystemIoc.class);
             context.refresh();
         }
