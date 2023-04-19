@@ -27,7 +27,7 @@ public class MessageController {
         IDistFileSystem dfs = context.getBean("distFileSystem", IDistFileSystem.class);
 
         try{
-            dfs.AppendInFile(message.getTopic(), message.getData());
+            dfs.AppendInFile(message.getTopic() + ".txt", message.getData());
         }
         catch(Exception e){
             System.out.println("Error Has Occurred!!!");

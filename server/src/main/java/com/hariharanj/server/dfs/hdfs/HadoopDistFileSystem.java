@@ -23,7 +23,10 @@ public class HadoopDistFileSystem implements IDistFileSystem{
     
     public HadoopDistFileSystem(){
         try{
-            Hdfs = FileSystem.get(URI.create(HadoopURI), new Configuration());
+            Configuration config = new Configuration();
+            config.setBoolean("dfs.support.append", true);
+
+            Hdfs = FileSystem.get(URI.create(HadoopURI), config);
 
             if(Hdfs.exists(new Path(HadoopWorkingDirectory))){
                 if(CleanDirectory){
@@ -48,7 +51,9 @@ public class HadoopDistFileSystem implements IDistFileSystem{
             DeleteFile(fileName);
         }
 
-        Hdfs.create(new Path(HadoopWorkingDirectory, fileName));
+        if(Hdfs.createNewFile(new Path(HadoopWorkingDirectory, fileName))){
+            Hdfs.setReplication(new Path(HadoopWorkingDirectory, fileName), (short) 1);
+        }
     }
 
     public String ReadFile(String fileName) throws Exception{
